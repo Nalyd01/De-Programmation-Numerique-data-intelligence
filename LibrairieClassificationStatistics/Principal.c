@@ -19,6 +19,8 @@ double calculateAccuracy(Classe distinctClasses[], int size);
 void main(void) {
 	int realClasses[8] = { 5, 2, 5, 3, 5, 3, 2, 4 };
 	int estimateClasses[8] = { 5, 5, 1, 2, 1, 3, 2, 4 };
+
+	displayResultsForEachClasses(realClasses, estimateClasses, 8);
 }
 
 int researchClasses(int realClasses[], Classe distinctClasses[], int size) {
