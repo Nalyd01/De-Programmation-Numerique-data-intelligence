@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h> 
 
-#define NB_MAX_CLASSES 100
+#define MAX_NB_CLASSES 100
 
 typedef struct classe {
 	int numClasse; // Class number (which corresponds to an activity)
@@ -19,9 +19,6 @@ double calculateAccuracy(Classe distinctClasses[], int size);
 void main(void) {
 	int realClasses[8] = { 5, 2, 5, 3, 5, 3, 2, 4 };
 	int estimateClasses[8] = { 5, 5, 1, 2, 1, 3, 2, 4 };
-	
-	displayResultsForEachClasses(realClasses, estimateClasses, 8); 
-	displayAccuracy(realClasses, estimateClasses, 8); 
 }
 
 int researchClasses(int realClasses[], Classe distinctClasses[], int size) {
@@ -60,7 +57,7 @@ int researchClasses(int realClasses[], Classe distinctClasses[], int size) {
 void displayResultsForEachClasses(int realClasses[], int estimateClasses[], int size) {
 	double percentage;
 	int sizeDistinctClasses; 
-	Classe distinctClasses[NB_MAX_CLASSES]; 
+	Classe distinctClasses[MAX_NB_CLASSES];
 
 	sizeDistinctClasses = researchClasses(realClasses, distinctClasses, size); 
 
@@ -98,7 +95,7 @@ double calculatePercentage(int nbRep, int nbGoodAnswers) {
 }
 
 void displayAccuracy(int realClasses[], int estimateClasses[], int size) {
-	Classe distinctClasses[NB_MAX_CLASSES]; 
+	Classe distinctClasses[MAX_NB_CLASSES];
 
 	int sizeDistinctClasses = researchClasses(realClasses, distinctClasses, size); 
 	goodAnswers(realClasses, estimateClasses, size, distinctClasses, sizeDistinctClasses);
