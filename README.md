@@ -5,7 +5,7 @@
 ### ResearchClasses
 
 ```
-int researchClasses (int realClasses[], Classe distinctClasses[]) ;
+int researchClasses (int realClasses[], Classe distinctClasses[], int size) ;
 ``` 
 
 Renvoie un tableau de structures, chaque cellule correspond à une classe. La fonction renvoie aussi la taille du tableau. La fonction va initialiser la valeur du nombre de bonnes réponses pour chaque classe à 0 et va calculer le nombre de répétition de la classe dans realClasses. 
@@ -13,7 +13,7 @@ Renvoie un tableau de structures, chaque cellule correspond à une classe. La fo
 ### DisplayResultsForEachClasses
 
 ```
-void displayResultsForEachClasses(int realClasses[], int estimateClasses[], Classe distinctClasses[], int size) ;
+void displayResultsForEachClasses(int realClasses[], int estimateClasses[], int size) ;
 ```
 
 Permet d’afficher un tableau avec différentes données. (ex : les classes, le nombre de bonnes réponses, le pourcentage de bonnes réponses, …). La fonction bouclera sur le tableau de structures après l’avoir mis à jour avec les fonctions nécessaires. 
@@ -21,7 +21,7 @@ Permet d’afficher un tableau avec différentes données. (ex : les classes, le
 ### GoodAnswers
 
 ```
-void goodAnswers(int realClasses[], int estimateClasses[], Classe distinctClasses[]) ;
+void goodAnswers(int realClasses[], int estimateClasses[], int size, Classe distinctClasses[], int sizeDistinctClasses) ;
 ```
 
 Met à jour le tableau de structures, en calculant la nombre de bonnes réponses et en y mettant le résultat dans la structure de la classe correspondante. 
@@ -29,15 +29,15 @@ Met à jour le tableau de structures, en calculant la nombre de bonnes réponses
 ### CalculatePercentage
 
 ```
-void calculatePercentage(Classe distinctClasses[]) ;
+void calculatePercentage(int nbRep, int nbGoodAnswers) ;
 ```
 
-Calcule le pourcentage de bonne réponses et met à jour le tableau de structures ; 
+Calcule le pourcentage de bonne réponses ; 
 
 ### DisplayAccuracy
 
 ```
-void displayAccuracy(int realClasses[], int estimateClasses[]);
+void displayAccuracy(int realClasses[], int estimateClasses[], int size);
 ```
 
 Affiche le taux de précision du programme.
@@ -45,7 +45,7 @@ Affiche le taux de précision du programme.
 ### CalculateAccuracy 
 
 ```
-double calculateAccuracy(int realClasses[], int estimateClasses[]); 
+double calculateAccuracy(Classe distinctClasses[] ,int size); 
 ```
 
 Calcule le taux de précision du programme en calculant pour chaque classe le taux de bonnes réponses et puis en faisant la moyenne des résultats. 
