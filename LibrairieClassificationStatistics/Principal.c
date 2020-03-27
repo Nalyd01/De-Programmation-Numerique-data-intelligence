@@ -1,32 +1,16 @@
-#include <stdio.h>
-#include <stdlib.h> 
-
-#define MAX_NB_CLASSES 100
-
-typedef struct classe {
-	int numClasse; // Class number (which corresponds to an activity)
-	int nbRep; // Number of class occurrences in the table realClasses
-	int nbGoodAnswers; // Number of good answers
-} Classe;
+#include "ClassificationStatistics.h"
 
 int researchClasses(int realClasses[], Classe distinctClasses[], int size); 
-void displayResultsForEachClasses(int realClasses[], int estimateClasses[], int size);
 void goodAnswers(int realClasses[], int estimateClasses[], int size, Classe distinctClasses[], int sizeDistinctClasses);
 double calculatePercentage(int nbRep, int nbGoodAnswers); 
-void displayAccuracy(int realClasses[], int estimateClasses[], int size);
 double calculateAccuracy(int realClasses[], int estimateClasses[], int size);
-void displayBarChart(int realClasses[], int estimateClasses[], int size);
 int rescaleBarChart(Classe distinctClasses[], int sizeDistinctClasses);
 
-void main(void) {
+/*void main(void) {
 	int realClasses[8] = { 5, 2, 5, 3, 5, 3, 2, 4 };
 	int estimateClasses[8] = { 5, 5, 1, 2, 1, 3, 2, 4 };
 	int size = 8;
-
-	displayResultsForEachClasses(realClasses, estimateClasses, size);
-	displayAccuracy(realClasses, estimateClasses, size);
-	displayBarChart(realClasses, estimateClasses, size);
-}
+}*/
 
 int researchClasses(int realClasses[], Classe distinctClasses[], int size) {
 	int currentRealClasse = 0;
