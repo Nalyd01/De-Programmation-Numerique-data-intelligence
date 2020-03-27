@@ -131,9 +131,12 @@ void displayBarChart(int realClasses[], int estimateClasses[], int size) {
 	int nbWrongAnswers;
 	int nbTotalAnswers;
 	int scale;
+
 	sizeDistinctClasses = researchClasses(realClasses, distinctClasses, size);
 	goodAnswers(realClasses, estimateClasses, size, distinctClasses, sizeDistinctClasses);
+	
 	scale = rescaleBarChart(distinctClasses, sizeDistinctClasses);
+	
 	printf("Legende:\n\tP : nbre de bien place\n\tN : nbre pas correctement place\n\tT : Total\n");
 	printf("  %d %d        %d        %d        %d        %d        %d", 0, 1 * scale, 10 * scale, 20 * scale, 30 * scale, 40 * scale, 50 * scale);
 	printf("\n__|_|________|_________|_________|_________|_________|_");
@@ -162,14 +165,17 @@ void displayBarChart(int realClasses[], int estimateClasses[], int size) {
 int rescaleBarChart(Classe distinctClasses[], int sizeDistinctClasses) {
 	int nbMaxClasses = 0;
 	int scale = 1;
+	
 	for (int i = 0;i < sizeDistinctClasses;i++) {
 		if (distinctClasses[i].nbRep > nbMaxClasses) {
 			nbMaxClasses = distinctClasses[i].nbRep;
 		}
 	}
+	
 	while ((nbMaxClasses / scale) > 50)
 	{
 		scale *= 2;
 	}
+	
 	return scale;
 }
