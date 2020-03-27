@@ -15,13 +15,17 @@ void goodAnswers(int realClasses[], int estimateClasses[], int size, Classe dist
 double calculatePercentage(int nbRep, int nbGoodAnswers); 
 void displayAccuracy(int realClasses[], int estimateClasses[], int size);
 double calculateAccuracy(int realClasses[], int estimateClasses[], int size);
+void displayBarChart(int realClasses[], int estimateClasses[], int size);
+int rescaleBarChart(Classe distinctClasses[], int sizeDistinctClasses);
 
 void main(void) {
 	int realClasses[8] = { 5, 2, 5, 3, 5, 3, 2, 4 };
 	int estimateClasses[8] = { 5, 5, 1, 2, 1, 3, 2, 4 };
+	int size = 8;
 
-	displayResultsForEachClasses(realClasses, estimateClasses, 8); 
-	displayAccuracy(realClasses, estimateClasses, 8); 
+	displayResultsForEachClasses(realClasses, estimateClasses, size);
+	displayAccuracy(realClasses, estimateClasses, size);
+	displayBarChart(realClasses, estimateClasses, size);
 }
 
 int researchClasses(int realClasses[], Classe distinctClasses[], int size) {
@@ -119,4 +123,53 @@ double calculateAccuracy(int realClasses[], int estimateClasses[], int size) {
 	}
 
 	return (double)sumGoodAnswers / sumNbRep * 100;
+}
+void displayBarChart(int realClasses[], int estimateClasses[], int size) {
+	int sizeDistinctClasses;
+	Classe distinctClasses[MAX_NB_CLASSES];
+	int nbGoodAnswers;
+	int nbWrongAnswers;
+	int nbTotalAnswers;
+	int scale;
+	sizeDistinctClasses = researchClasses(realClasses, distinctClasses, size);
+	goodAnswers(realClasses, estimateClasses, size, distinctClasses, sizeDistinctClasses);
+	scale = rescaleBarChart(distinctClasses, sizeDistinctClasses);
+	printf("Legende:\n\tP : nbre de bien place\n\tN : nbre pas correctement place\n\tT : Total\n");
+	printf("  %d %d        %d        %d        %d        %d        %d", 0, 1 * scale, 10 * scale, 20 * scale, 30 * scale, 40 * scale, 50 * scale);
+	printf("\n__|_|________|_________|_________|_________|_________|_");
+	printf("\n  |");
+	printf("\n  |");
+	printf("\n  |");
+	for (int i = 0;i < sizeDistinctClasses;i++) {
+		printf("\n P|");
+		for (nbGoodAnswers = distinctClasses[i].nbGoodAnswers / scale; nbGoodAnswers > 0; nbGoodAnswers--) {
+			printf("_");
+		}
+		printf("\n%dN|", distinctClasses[i].numClasse);
+		nbWrongAnswers = (distinctClasses[i].nbRep - distinctClasses[i].nbGoodAnswers) / scale;
+		for (nbWrongAnswers; nbWrongAnswers > 0; nbWrongAnswers--) {
+			printf("_");
+		}
+		printf("\n T|");
+		for (nbTotalAnswers = distinctClasses[i].nbRep / scale; nbTotalAnswers > 0; nbTotalAnswers--) {
+			printf("_");
+		}
+		printf("\n  |");
+	}
+	printf("\n");
+	system("pause");
+}
+int rescaleBarChart(Classe distinctClasses[], int sizeDistinctClasses) {
+	int nbMaxClasses = 0;
+	int scale = 1;
+	for (int i = 0;i < sizeDistinctClasses;i++) {
+		if (distinctClasses[i].nbRep > nbMaxClasses) {
+			nbMaxClasses = distinctClasses[i].nbRep;
+		}
+	}
+	while ((nbMaxClasses / scale) > 50)
+	{
+		scale *= 2;
+	}
+	return scale;
 }
