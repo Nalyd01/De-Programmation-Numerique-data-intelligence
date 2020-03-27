@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h> 
 
-#define MAX_NB_CLASSES 100
+#define MAX_NB_CLASSES 10000
 
 typedef struct classe {
 	int numClasse; // Class number (which corresponds to an activity)
