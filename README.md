@@ -45,7 +45,7 @@ Affiche le taux de précision du programme.
 ### CalculateAccuracy 
 
 ```
-double calculateAccuracy(Classe distinctClasses[] ,int size); 
+double calculateAccuracy(int realClasses[], int estimateClasses[], int size);
 ```
 
 Calcule le taux de précision du programme en calculant pour chaque classe le taux de bonnes réponses et puis en faisant la moyenne des résultats. 
@@ -53,7 +53,7 @@ Calcule le taux de précision du programme en calculant pour chaque classe le ta
 ### DisplayBarChart
 
 ```
-void displayBarChart(int realClasses[], int estimateClasses[]); 
+void displayBarChart(int realClasses[], int estimateClasses[], int size); 
 ```
 
 Affiche un diagramme en bâtons comprenant le nombre de bonnes réponses, le pourcentage de bonnes réponses, les numéros de classe et le tout selon une certaine échelle.
@@ -61,7 +61,7 @@ Affiche un diagramme en bâtons comprenant le nombre de bonnes réponses, le pou
 ### RescaleDate
 
 ```
-void rescaleDate(Classe distinctClasses[]) ; 
+int rescaleBarChart (Classe distinctClasses[],int sizeDistinctClasses) ; 
 ```
 
 Si besoin, mets à l’échelle les nombres trop grands ; 
