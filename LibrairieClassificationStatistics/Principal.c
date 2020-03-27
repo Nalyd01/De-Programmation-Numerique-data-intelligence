@@ -9,16 +9,19 @@ typedef struct classe {
 	int nbGoodAnswers; // Number of good answers
 } Classe;
 
-int researchClasses(int realClasses[], Classe distinctClasses[], int size);
+int researchClasses(int realClasses[], Classe distinctClasses[], int size); 
 void displayResultsForEachClasses(int realClasses[], int estimateClasses[], int size);
-void goodAnswers(int realClasses[], int estimateClasses[], int size, Classe distinctClasses[], int sizeDistinctClasse);
-double calculatePercentage(Classe distinctClasses[], int size);
+void goodAnswers(int realClasses[], int estimateClasses[], int size, Classe distinctClasses[], int sizeDistinctClasses);
+double calculatePercentage(int nbRep, int nbGoodAnswers); 
 void displayAccuracy(int realClasses[], int estimateClasses[], int size);
 double calculateAccuracy(int realClasses[], int estimateClasses[], int size);
 
 void main(void) {
 	int realClasses[8] = { 5, 2, 5, 3, 5, 3, 2, 4 };
 	int estimateClasses[8] = { 5, 5, 1, 2, 1, 3, 2, 4 };
+
+	displayResultsForEachClasses(realClasses, estimateClasses, 8); 
+	displayAccuracy(realClasses, estimateClasses, 8); 
 }
 
 int researchClasses(int realClasses[], Classe distinctClasses[], int size) {
@@ -90,14 +93,8 @@ void goodAnswers(int realClasses[], int estimateClasses[], int size, Classe dist
 	}
 }
 
-double calculatePercentage(Classe distinctClasses[], int size) {
-	int sumGoodRep = 0;
-	int sumNbRep = 0;
-
-	for (int i = 0; i < size; i++) {
-		sumGoodRep += distinctClasses[i].nbGoodAnswers;
-		sumNbRep += distinctClasses[i].nbRep;
-	}
+double calculatePercentage(int nbRep, int nbGoodAnswers) {
+	return (double)nbGoodAnswers / nbRep * 100;
 }
 
 void displayAccuracy(int realClasses[], int estimateClasses[], int size) {
