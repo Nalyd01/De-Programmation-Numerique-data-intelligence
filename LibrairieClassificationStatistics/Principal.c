@@ -6,21 +6,19 @@
 typedef struct classe {
 	int numClasse; // Class number (which corresponds to an activity)
 	int nbRep; // Number of class occurrences in the table realClasses
-	int nbGoodAnswers; // Number of goog answers
+	int nbGoodAnswers; // Number of good answers
 } Classe;
 
-int researchClasses(int realClasses[],Classe distinctClasses[], int size);
+int researchClasses(int realClasses[], Classe distinctClasses[], int size);
 void displayResultsForEachClasses(int realClasses[], int estimateClasses[], int size);
 void goodAnswers(int realClasses[], int estimateClasses[], int size, Classe distinctClasses[], int sizeDistinctClasse);
-double calculatePercentage(int nbRep, int nbGoodAnswers);
-void displayAccuracy(int realClasses[], int estimateClasses[], int size); 
-double calculateAccuracy(Classe distinctClasses[], int size);
+double calculatePercentage(Classe distinctClasses[], int size);
+void displayAccuracy(int realClasses[], int estimateClasses[], int size);
+double calculateAccuracy(int realClasses[], int estimateClasses[], int size);
 
 void main(void) {
 	int realClasses[8] = { 5, 2, 5, 3, 5, 3, 2, 4 };
 	int estimateClasses[8] = { 5, 5, 1, 2, 1, 3, 2, 4 };
-
-	//displayResultsForEachClasses(realClasses, estimateClasses, 8);
 }
 
 int researchClasses(int realClasses[], Classe distinctClasses[], int size) {
@@ -58,10 +56,10 @@ int researchClasses(int realClasses[], Classe distinctClasses[], int size) {
 
 void displayResultsForEachClasses(int realClasses[], int estimateClasses[], int size) {
 	double percentage;
-	int sizeDistinctClasses; 
+	int sizeDistinctClasses;
 	Classe distinctClasses[MAX_NB_CLASSES];
 
-	sizeDistinctClasses = researchClasses(realClasses, distinctClasses, size); 
+	sizeDistinctClasses = researchClasses(realClasses, distinctClasses, size);
 
 	goodAnswers(realClasses, estimateClasses, size, distinctClasses, sizeDistinctClasses);
 
@@ -92,28 +90,36 @@ void goodAnswers(int realClasses[], int estimateClasses[], int size, Classe dist
 	}
 }
 
-double calculatePercentage(int nbRep, int nbGoodAnswers) {
-	return (double)nbGoodAnswers / nbRep * 100;
+double calculatePercentage(Classe distinctClasses[], int size) {
+	int sumGoodRep = 0;
+	int sumNbRep = 0;
+
+	for (int i = 0; i < size; i++) {
+		sumGoodRep += distinctClasses[i].nbGoodAnswers;
+		sumNbRep += distinctClasses[i].nbRep;
+	}
 }
 
 void displayAccuracy(int realClasses[], int estimateClasses[], int size) {
-	Classe distinctClasses[MAX_NB_CLASSES];
-
-	int sizeDistinctClasses = researchClasses(realClasses, distinctClasses, size); 
-	goodAnswers(realClasses, estimateClasses, size, distinctClasses, sizeDistinctClasses);
-
-	double accuracy = calculateAccuracy(distinctClasses, sizeDistinctClasses);
+	double accuracy = calculateAccuracy(realClasses, estimateClasses, size);
 
 	printf("L'accuracy est de %.2f%%\n", accuracy);
 	system("pause");
 }
 
-double calculateAccuracy(Classe distinctClasses[], int sizeDistinctClasses) {
-	double sum = 0;
+double calculateAccuracy(int realClasses[], int estimateClasses[], int size) {
+	Classe distinctClasses[MAX_NB_CLASSES];
+	int sizeDistinctClasses;
+	int sumGoodAnswers = 0;
+	int sumNbRep = 0;
+
+	sizeDistinctClasses = researchClasses(realClasses, distinctClasses, size);
+	goodAnswers(realClasses, estimateClasses, size, distinctClasses, sizeDistinctClasses);
 
 	for (int i = 0; i < sizeDistinctClasses; i++) {
-		sum += calculatePercentage(distinctClasses[i].nbRep, distinctClasses[i].nbGoodAnswers);
+		sumGoodAnswers += distinctClasses[i].nbGoodAnswers;
+		sumNbRep += distinctClasses[i].nbRep;
 	}
-	 
-	return sum / sizeDistinctClasses;
+
+	return (double)sumGoodAnswers / sumNbRep * 100;
 }
